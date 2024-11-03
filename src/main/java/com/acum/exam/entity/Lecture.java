@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table (name="LECTURE",
         uniqueConstraints=
-        @UniqueConstraint(columnNames={"COURSE_ID", "EMP_NAME"}))
+        @UniqueConstraint(columnNames={"COURSE_ID", "LECTURE_ORDER"}))
 public class Lecture {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,5 +19,5 @@ public class Lecture {
 
     private String title;
     private String description;
-    private String order;
+    private int lectureOrder;
 }
