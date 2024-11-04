@@ -28,12 +28,6 @@ public class Student {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="username")
-	private String userName;
-	
-	@Column(name="password")
-	private String password;
-	
 	@Column(name="first_name")
 	private String firstName;
 	
@@ -48,46 +42,19 @@ public class Student {
 	@JoinTable(name="student_course_details",
 				joinColumns = @JoinColumn(name="student_id"),
 				inverseJoinColumns = @JoinColumn(name="course_id"))			
-	private List<Course> courses;
+	private List<Course> courses = new ArrayList<>();
 	
 	public Student() {
 		
 	}
 
-	public Student(int id, String userName, String password, String firstName, String lastName, String email,
+	public Student(int id, String firstName, String lastName, String email,
 			 List<Course> courses) {
 		this.id = id;
-		this.userName = userName;
-		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.courses = courses;
 	}
 
-	public void addCourse(Course course) {
-		if(courses == null) {
-			courses = new ArrayList<>();
-		}
-		courses.add(course);
-	}
-
-	public void removeCourse(Course course) {
-		courses.remove(course);
-	}
-	
-	public boolean equals(Object comparedObject) {
-	    if (this == comparedObject) {
-	        return true;
-	    }
-
-	   if (!(comparedObject instanceof Student comparedStudent)) {
-	        return false;
-	    }
-
-        return this.id == comparedStudent.id;
-    }
-	
-	
-	
 }

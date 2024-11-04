@@ -20,7 +20,7 @@ public class Course {
 	
 	@NotBlank(message = "is required")
 	@Size(min = 1, message = "is required")
-	@Column(name="code")
+	@Column(name="code",unique=true)
 	private String code;
 	
 	@NotBlank(message = "is required")
@@ -34,7 +34,7 @@ public class Course {
 	@JoinTable(name="student_course_details",
 				joinColumns = @JoinColumn(name="course_id"),
 				inverseJoinColumns = @JoinColumn(name="student_id"))			
-	private List<Student> students;
+	private List<Student> students = new ArrayList<>();
 	
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -58,26 +58,4 @@ public class Course {
 		return students.size();
 	}
 	
-	public void addStudent(Student student) {
-		if(students == null) {
-			students = new ArrayList<>();
-		}
-		students.add(student);
-	}
-	
-	public void removeStudent(Student student) {
-			students.remove(student);
-	}
-	
-	public boolean equals(Object comparedObject) {
-	    if (this == comparedObject) {
-	        return true;
-	    }
-
-	   if (!(comparedObject instanceof Course comparedCourse)) {
-	        return false;
-	    }
-        return this.id == comparedCourse.id;
-    }
-
 }
